@@ -10,22 +10,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class ResgisterActivity extends AppCompatActivity {
 
     EditText edUsername,edEmail, edPassword, edConfirm;
     Button btn;
     TextView tv;
 
+    private String tableName = "User";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resgister);
-
-        edUsername = findViewById(R.id.editTextRegUsername);
-        edPassword = findViewById(R.id.editTextRegPassword);
-        edEmail = findViewById(R.id.editTextRegEmail);
-        edConfirm = findViewById(R.id.editTextRegConfirmPassword);
-        btn = findViewById(R.id.buttonRegister);
+//        dbHelper = new Database(this);
+        edUsername = findViewById(R.id.editTextAppFullName);
+        edPassword = findViewById(R.id.editTextAppContacNumber);
+        edEmail = findViewById(R.id.editTextAppAddress);
+        edConfirm = findViewById(R.id.editTextAppFees);
+        btn = findViewById(R.id.buttonAppBack);
         tv = findViewById(R.id.textViewExistingUser);
 
         tv.setOnClickListener(new View.OnClickListener() {
@@ -39,18 +43,22 @@ public class ResgisterActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = edUsername.getText().toString();
-                String email = edEmail.getText().toString();
-                String password = edPassword.getText().toString();
+                String username = edUsername.getText().toString().trim();
+                String email = edEmail.getText().toString().trim();
+                String password = edPassword.getText().toString().trim();
                 String confirm = edConfirm.getText().toString();
-                Database db = new Database(getApplicationContext(),"healthcare", null,1);
+                ArrayList userModel = new ArrayList<>();
+                userModel.add("username");
+                userModel.add("email");
+                userModel.add("password");
+                Database db = new Database(ResgisterActivity.this, userModel, tableName);
                 if(username.length()==0 || password.length()==0){
                     Toast.makeText(getApplicationContext(),"Please fill All details",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     if (password.compareTo(confirm)==0){
                         if(isValid(password)){
-                            db.register(username,email,password);
+                            db.registerUser(username,email,password, tableName);
                             Toast.makeText(getApplicationContext(),"Record Inserted",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(ResgisterActivity.this,LoginActivity.class));
                         }else{
