@@ -74,8 +74,8 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_details);
 
-        tv = findViewById(R.id.textViewDDTitle);
-        btn = findViewById(R.id.buttonLTGoToCart);
+        tv = findViewById(R.id.textViewBMCartTitle);
+        btn = findViewById(R.id.buttonBMCheckout);
 
         Intent it = getIntent();
         String title = it.getStringExtra("title");
@@ -119,7 +119,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                 new String[]{"line_a", "line_b", "line_c", "line_d", "line_e"},
                 new int[]{R.id.line_a, R.id.line_b, R.id.line_c, R.id.line_d, R.id.line_e}
         );
-        ListView lst = findViewById(R.id.listViewLT);
+        ListView lst = findViewById(R.id.listViewBMCart);
         lst.setAdapter(sa);
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {

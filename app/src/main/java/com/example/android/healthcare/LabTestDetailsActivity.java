@@ -29,19 +29,20 @@ public class LabTestDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_lab_test_details);
 
-         tvPackagename = findViewById(id.textViewLDPackagename);
+         tvPackagename = findViewById(id.textViewBMDPackagename);
         tvTotalCost = findViewById(id.textViewLDTotalCost);
         edDetails = findViewById(id.editTextLDTextMultiLine);
         btnAddToCart = findViewById(id.buttonLDAddToCart);
         btnBack = findViewById(id.buttonLDBack);
 //
-//        ArrayList userModel = new ArrayList<>();
-//        userModel.add("username");
-//        userModel.add("product");
-//        userModel.add("price");
-//        userModel.add("otype");
+        ArrayList userModel = new ArrayList<>();
+        userModel.add("username");
+        userModel.add("product");
+        userModel.add("price");
+        userModel.add("otype");
 //        Database db = new Database(LabTestDetailsActivity.this, userModel, tableName);
-        edDetails.setKeyListener(null);
+
+         edDetails.setKeyListener(null);
 
         Intent intent=getIntent();
         tvPackagename.setText(intent.getStringExtra("text1"));
@@ -63,21 +64,22 @@ public class LabTestDetailsActivity extends AppCompatActivity {
                 String product = tvPackagename.getText().toString();
                 float price = Float.parseFloat(intent.getStringExtra("text3").toString());
 
+
                 ArrayList userModel = new ArrayList<>();
                 userModel.add("username");
                 userModel.add("product");
                 userModel.add("price");
                 userModel.add("otype");
-                Database db = new Database(LabTestDetailsActivity.this, userModel, tableName);
+//                Database db = new Database(LabTestDetailsActivity.this, userModel, tableName);
 
-                if(db.checkCart(username, product) == 1){
-                    Toast.makeText(LabTestDetailsActivity.this, "Product already exits", Toast.LENGTH_SHORT).show();
-                }else{
-                    db.addCart(username, product, String.valueOf(price).toString(), "lab");
-                    Toast.makeText(LabTestDetailsActivity.this, "Record inserted to card", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LabTestDetailsActivity.this,LabTestActivity.class));
-
-                }
+//                if(db.checkCart(username, product) == 1){
+//                    Toast.makeText(LabTestDetailsActivity.this, "Product already exits", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    db.addCart(username, product, String.valueOf(price).toString(), "lab");
+//                    Toast.makeText(LabTestDetailsActivity.this, "Record inserted to card", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(LabTestDetailsActivity.this,LabTestActivity.class));
+//
+//                }
             }
         });
 

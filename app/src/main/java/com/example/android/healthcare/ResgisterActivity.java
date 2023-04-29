@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.healthcare.Model.User;
+
 import java.util.ArrayList;
 
 public class ResgisterActivity extends AppCompatActivity {
@@ -19,18 +21,23 @@ public class ResgisterActivity extends AppCompatActivity {
     TextView tv;
 
     private String tableName = "User";
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resgister);
 //        dbHelper = new Database(this);
-        edUsername = findViewById(R.id.editTextAppFullName);
-        edPassword = findViewById(R.id.editTextAppContacNumber);
-        edEmail = findViewById(R.id.editTextAppAddress);
-        edConfirm = findViewById(R.id.editTextAppFees);
+        edUsername = findViewById(R.id.editTextLTBFullName);
+        edPassword = findViewById(R.id.editTextLTBContac);
+        edEmail = findViewById(R.id.editTextLTBAddress);
+        edConfirm = findViewById(R.id.editTextLTBPincode);
         btn = findViewById(R.id.buttonAppBack);
         tv = findViewById(R.id.textViewExistingUser);
+
+        database = new Database();
+
+
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,18 +54,16 @@ public class ResgisterActivity extends AppCompatActivity {
                 String email = edEmail.getText().toString().trim();
                 String password = edPassword.getText().toString().trim();
                 String confirm = edConfirm.getText().toString();
-                ArrayList userModel = new ArrayList<>();
-                userModel.add("username");
-                userModel.add("email");
-                userModel.add("password");
-                Database db = new Database(ResgisterActivity.this, userModel, tableName);
+
                 if(username.length()==0 || password.length()==0){
                     Toast.makeText(getApplicationContext(),"Please fill All details",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     if (password.compareTo(confirm)==0){
                         if(isValid(password)){
-                            db.registerUser(username,email,password, tableName);
+                            User user = new User(username, email, password);
+                            database.writeTable(tableName, user);
+                            database.register(username, password);
                             Toast.makeText(getApplicationContext(),"Record Inserted",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(ResgisterActivity.this,LoginActivity.class));
                         }else{
@@ -71,6 +76,7 @@ public class ResgisterActivity extends AppCompatActivity {
                 }
 
             }
+
         });
     }
     public static boolean isValid(String passwordhere){

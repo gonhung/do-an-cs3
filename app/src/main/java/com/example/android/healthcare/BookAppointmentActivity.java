@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -30,13 +29,13 @@ public class BookAppointmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_appointment);
 
         tv = findViewById(R.id.textViewAppTitle);
-        ed1 = findViewById(R.id.editTextAppFullName);
-        ed2 = findViewById(R.id.editTextAppAddress);
-        ed3 = findViewById(R.id.editTextAppContacNumber);
-        ed4 = findViewById(R.id.editTextAppFees);
-        dateButton = findViewById(R.id.buttonAppDate2);
+        ed1 = findViewById(R.id.editTextLTBFullName);
+        ed2 = findViewById(R.id.editTextLTBAddress);
+        ed3 = findViewById(R.id.editTextLTBContac);
+        ed4 = findViewById(R.id.editTextLTBPincode);
+        dateButton = findViewById(R.id.buttonCartTime);
         timeButton = findViewById(R.id.buttonAppTime);
-        btnBook = findViewById(R.id.buttonBookAppointment2);
+        btnBook = findViewById(R.id.buttonLTBBooking);
         btnBack = findViewById(R.id.buttonAppBack);
 
         ed1.setKeyListener(null);

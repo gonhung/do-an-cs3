@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import java.io.OptionalDataException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,9 +54,9 @@ public class LabTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lab_test);
 
-        btnGoToCart = findViewById(R.id.buttonLTGoToCart);
-        btnBack = findViewById(R.id.buttonLTBack);
-        listView = findViewById(R.id.listViewLT);
+        btnGoToCart = findViewById(R.id.buttonBMCheckout);
+        btnBack = findViewById(R.id.buttonBMCartBack);
+        listView = findViewById(R.id.listViewBMCart);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +91,13 @@ public class LabTestActivity extends AppCompatActivity {
                 it.putExtra("text3",packages[i][4] );
                 startActivity(it);
 
+            }
+        });
+
+        btnGoToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LabTestActivity.this, CartLabActivity.class));
             }
         });
     }

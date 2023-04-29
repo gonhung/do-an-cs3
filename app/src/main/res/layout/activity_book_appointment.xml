@@ -39,7 +39,7 @@
         app:layout_constraintVertical_bias="0.147" />
 
     <EditText
-        android:id="@+id/editTextAppAddress"
+        android:id="@+id/editTextLTBAddress"
         android:layout_width="330dp"
         android:layout_height="43dp"
         android:background="@drawable/input_bg"
@@ -62,7 +62,7 @@
         app:layout_constraintVertical_bias="0.35" />
 
     <EditText
-        android:id="@+id/editTextAppFullName"
+        android:id="@+id/editTextLTBFullName"
         android:layout_width="330dp"
         android:layout_height="43dp"
         android:background="@drawable/input_bg"
@@ -85,7 +85,7 @@
         app:layout_constraintVertical_bias="0.045" />
 
     <EditText
-        android:id="@+id/editTextAppContacNumber"
+        android:id="@+id/editTextLTBContac"
         android:layout_width="330dp"
         android:layout_height="43dp"
         android:background="@drawable/input_bg"
@@ -108,7 +108,7 @@
         app:layout_constraintVertical_bias="0.447" />
 
     <EditText
-        android:id="@+id/editTextAppFees"
+        android:id="@+id/editTextLTBPincode"
         android:layout_width="330dp"
         android:layout_height="43dp"
         android:background="@drawable/input_bg"
@@ -127,11 +127,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAppContacNumber"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLTBContac"
         app:layout_constraintVertical_bias="0.071" />
 
     <Button
-        android:id="@+id/buttonBookAppointment2"
+        android:id="@+id/buttonLTBBooking"
         android:layout_width="317dp"
         android:layout_height="48dp"
         android:background="@drawable/btn_bg"
@@ -140,7 +140,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAppFees"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLTBPincode"
         app:layout_constraintVertical_bias="0.547" />
 
     <Button
@@ -153,7 +153,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAppFees"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLTBPincode"
         app:layout_constraintVertical_bias="0.796" />
 
     <TextView
@@ -165,7 +165,7 @@
         android:text="Select Date"
         android:textColor="@color/yellowLinght"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAppFees" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLTBPincode" />
 
     <TextView
         android:id="@+id/textView4"
@@ -176,10 +176,10 @@
         android:text="Select Time"
         android:textColor="@color/yellowLinght"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAppFees" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLTBPincode" />
 
     <Button
-        android:id="@+id/buttonAppDate2"
+        android:id="@+id/buttonCartTime"
         style="?android:spinnerStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
