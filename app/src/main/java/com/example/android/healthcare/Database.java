@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.android.healthcare.Model.Cart;
 import com.example.android.healthcare.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +31,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     private DatabaseReference mDatabase;
@@ -47,95 +49,27 @@ public class Database {
     }
 
     public  void  register(String username, String password){
-      mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task)
+            {
+                if (task.isSuccessful()) {
+                    return;
+                }
 
-          @Override
-          public void onComplete(@NonNull Task<AuthResult> task)
-          {
-              if (task.isSuccessful()) {
-                  return;
-              }
-
-          }
-      });
+            }
+        });
     }
 
     public DatabaseReference getmDatabase() {
         return mDatabase;
     }
 
-    public int login(String table, String username, String password){
-        int[] result = new int[1];
-
-        Query query = mDatabase.child(table).orderByChild("username").equalTo(username);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Loop through the matching users
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        // Get the user object and check the password
-
-                        User user = userSnapshot.getValue(User.class);
-                        if (user.getPassword().equals(password)) {
-                            Log.d("data return", "user.getPassword(): "+ user.getPassword());
-                            result[0] = 1;
-                            break;
-                        }
-                    }
-                }else{
-                result[0] = 0;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle errors
-            }
-        });
-        Log.d("data return", "data: "+ result[0]);
-
-        return result[0];
+    public void addCart(String username, String product, float price, String  otype){
+        Cart cart = new Cart(username, product, price, otype);
+        this.writeTable("cart", cart);
     }
-//
-//    public void addCart(String username, String product, String price, String  otype){
-//        ContentValues cv =  new ContentValues();
-//        SQLiteDatabase db = getWritableDatabase();
-//
-//        cv.put("username", username);
-//        cv.put("product", product);
-//        cv.put("price", price);
-//        cv.put("otype", otype);
-//        db.insert("cart",null,cv);
-//        db.close();
-//
-//    }
-//
-//    public int checkCart(String username, String product){
-//        this.addCart(username, product, "price", "otype");
-//        int result=0;
-//        String str[] = new String[2];
-//        str[0] = username;
-//        str[1] = product;
-//        SQLiteDatabase db = getReadableDatabase();
-////        if(db != null){
-////            Cursor c = db.rawQuery("select * from cart where username = ? and product = ? ", str);
-////            if (c.moveToFirst()){
-////                result=1;
-////            }
-////            db.close();
-////        }else{
-//
-//            Cursor c = db.rawQuery("select * from cart where username = ? and product = ? ", str);
-//            if (c.moveToFirst()){
-//                result=1;
-//            }
-//            db.close();
-////        }
-//        return result;
-//
-//    }
-//
+
 //    public void removeCart(String usrname, String otype){
 //        String str[] = new String[2];
 //        str[0] = usrname;
@@ -145,23 +79,33 @@ public class Database {
 //        db.close();
 //    }
 //
-//    public ArrayList getCartDate(String usernaem, String ptype){
-//        ArrayList<String> arr  = new ArrayList<>();
-//        SQLiteDatabase db = getReadableDatabase();
-//        String str[] = new String[2];
-//        str[0] = usernaem;
-//        str[1] =  otype;
-//        Cursor c = db.rawQuery("select * from cart where username = ? and otype =?",str);
-//        if(c.moveToFirst()){
-//            do {
-//                String product = c.getString(1);
-//                String price = c.getString(2);
-//                arr.add(product+"$"+price);
-//            }while (c.moveToNext());
-//        }
-//        db.close();
-//        return arr;
-//     }
+
+    public ArrayList getCartDate(String tableName, String username, String ptype){
+        ArrayList<Cart> arr  = new ArrayList<>();
+         mDatabase.child(tableName).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Cart cart = dataSnapshot.getValue(Cart.class);
+                            if(cart.getUsername().equals(username) && cart.getOtype().equals(ptype)){
+                                Log.d("in here", "Data:   "+ cart.getUsername());
+                                Cart cartIt = new Cart(cart.getUsername(), cart.getProduct(), cart.getPrice(),cart.getOtype());
+
+                                arr.add(cartIt);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                }
+        );
+
+        return arr;
+    }
 //
 //     public void addOrder(String username, String fullname, String address, String contact, int pincode, String date, String time, float price, String otype){
 //        ContentValues cv = new ContentValues();

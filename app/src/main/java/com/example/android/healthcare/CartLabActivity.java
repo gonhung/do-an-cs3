@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,6 +34,7 @@ public class CartLabActivity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private Button dateButton, timeButton, btnCheckout, btnBack;
     private  String tablename = "cart";
+    private Database database;
     private String[][] packages = {};
 
 
@@ -47,6 +49,7 @@ public class CartLabActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.buttonBMCartBack);
         tvTotal = findViewById(R.id.textViewBMCartTotalCost);
         lst = findViewById(R.id.listViewBMCart);
+        database = new Database();
 
         SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username","").toString();
@@ -55,17 +58,17 @@ public class CartLabActivity extends AppCompatActivity {
         userModel.add("product");
         userModel.add("price");
         userModel.add("otype");
-//        Database db = new Database(CartLabActivity.this, userModel, tablename);
 
         float totalAmount =0;
-//        ArrayList dbData = db.getCartDate(username,"lab");
+//        ArrayList dbData = database.getCartDate(tablename, username,"lab");
+//        Log.d("dbData", "dbData" + dbData);
 //        Toast.makeText(getApplicationContext(),""+dbData, Toast.LENGTH_SHORT).show();
-//
+
 //        packages = new String[dbData.size()][];
-//        for (int i =0 ; i< packages.length;i++){
-//            packages[i] = new String[5];
-//        }
-//
+        for (int i =0 ; i< packages.length;i++){
+            packages[i] = new String[5];
+        }
+
 //        for(int i =0 ; i<dbData.size();i++){
 //           String arrData = dbData.get(i).toString();
 //           String[] strData = arrData.split(java.util.regex.Pattern.quote("$"));

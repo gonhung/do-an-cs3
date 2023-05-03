@@ -19,13 +19,13 @@ public class BuyMedicineActivity extends AppCompatActivity {
             {
                     {"Uprise-D3 1000IU Capsule","","","","50"},
                     {"HelthVit Chromium Picolinate 200mcg Capsule","","","","305"},
-                    {"Vitamin B Complex Capsules", "", "", "", "", "448"},
+                    {"Vitamin B Complex Capsules", "", "", "", "448"},
                     {"Inlite Vitamin E Wheat Germ Oil Capsule ","","","","539"},
-                    {"Dolo 650 Tablet","", "", "", "", "30"},
-                    {"Crocin 650 Advance Tablet","", "", "", "", "50"},
-                    {"Strepsils Medicated Lozenges for Sore Throat","", "", "", "", " 40"},
-                    {"Tata 1mg Calcim + Vitamin D3","", "", "", "", "30"},
-                    {"Feronia -XT Table","", "", "", "", "130"},
+                    {"Dolo 650 Tablet","", "", "", "30"},
+                    {"Crocin 650 Advance Tablet","", "", "", "50"},
+                    {"Strepsils Medicated Lozenges for Sore Throat","", "", "", " 40"},
+                    {"Tata 1mg Calcim + Vitamin D3","", "", "", "30"},
+                    {"Feronia -XT Table","", "", "", "130"},
             };
     private String[] package_details = {
             "Building and keeping the bones & teech strong\n"+
@@ -100,8 +100,8 @@ public class BuyMedicineActivity extends AppCompatActivity {
           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
               Intent it = new Intent(BuyMedicineActivity.this, BuyMedicineDetailsActivity.class);
               it.putExtra("text1", packages[i][0]);
-              it.putExtra("text1", package_details[i]);
-              it.putExtra("text1", packages[i][4]);
+              it.putExtra("text2", package_details[i]);
+              it.putExtra("text3", packages[i][4]);
               startActivity(it);
           }
       });

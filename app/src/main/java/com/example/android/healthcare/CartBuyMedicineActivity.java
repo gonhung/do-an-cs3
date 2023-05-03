@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,10 +18,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.healthcare.Model.Cart;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
+import java.util.List;
 public class CartBuyMedicineActivity extends AppCompatActivity {
 
     HashMap<String, String> item;
@@ -33,8 +36,13 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private Button dateButton,  btnCheckout, btnBack;
     private  String tablename = "cart";
+    private Database database;
     private String[][] packages = {};
 
+    public interface Callback {
+
+        void act(List<Cart> models);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +54,16 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.buttonBMCartBack);
         tvTotal = findViewById(R.id.textViewBMCartTotalCost);
         lst = findViewById(R.id.listViewBMCart);
+        database = new Database();
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("share_prefer", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username","").toString();
-        ArrayList userModel = new ArrayList<>();
-        userModel.add("username");
-        userModel.add("product");
-        userModel.add("price");
-        userModel.add("otype");
-//        Database db = new Database(CartBuyMedicineActivity.this, userModel, tablename);
+
 
         float totalAmount =0;
-//        ArrayList dbData = db.getCartDate(username,"lab");
+        ArrayList dbData = database.getCartDate(tablename, username,"medicine");
+        Log.d("medician", "data: " + dbData);
 //        Toast.makeText(getApplicationContext(),""+dbData, Toast.LENGTH_SHORT).show();
 
 //        packages = new String[dbData.size()][];
